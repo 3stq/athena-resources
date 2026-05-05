@@ -9,7 +9,7 @@ local executor_name      = identifyexecutor and identifyexecutor() or "Unknown";
 local http               = game.HttpGet;
 local load_string        = loadstring;
 local msgbox             = messageboxasync or messagebox;
-local url                = "https://raw.githubusercontent.com/3stq/radiance-resources/refs/heads/main/Games/";
+local url                = "https://raw.githubusercontent.com/3stq/athena-resources/refs/heads/main/Games/";
 
 local games = {};
 do
