@@ -24,6 +24,8 @@ if not LPH_OBFUSCATED then
 	end
 end
 
+getgenv().DebugMode = true
+
 local HttpService   = cloneref(game:GetService("HttpService"))
 local Players       = cloneref(game:GetService("Players"))
 local CoreGui       = cloneref(game:GetService("CoreGui"))
@@ -55,7 +57,7 @@ task.spawn(LPH_NO_VIRTUALIZE(function()
         local timeStr = string.format("%02d:%02d:%02d", hours, minutes, seconds)
 
         if getgenv().DebugMode then
-            rconsolesettitle(" Client Bypass | " .. timeStr)
+            rconsolesettitle(" Chinese Bypass | " .. timeStr)
         end
     end
 end))
