@@ -1,41 +1,63 @@
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game.Players and game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart
 
-if not LPH_OBFUSCATED then
-    LPH_JIT = function(f, ...)
-    	assert(type(f) == "function" and #{...} == 0, "LPH_JIT only accepts a single constant function as an argument.")
-    	return f
+if (not LPH_OBFUSCATED) then
+	LPH_ENCNUM = function(toEncrypt, ...)
+		assert(type(toEncrypt) == "number" and #{...} == 0, "LPH_ENCNUM only accepts a single constant double or integer as an argument.")
+		return toEncrypt
+	end
+	LPH_NUMENC = LPH_ENCNUM
+
+	LPH_ENCSTR = function(toEncrypt, ...)
+		assert(type(toEncrypt) == "string" and #{...} == 0, "LPH_ENCSTR only accepts a single constant string as an argument.")
+		return toEncrypt
+	end
+	LPH_STRENC = LPH_ENCSTR
+
+	LPH_ENCFUNC = function(toEncrypt, encKey, decKey, ...)
+		assert(type(toEncrypt) == "function" and type(encKey) == "string" and #{...} == 0, "LPH_ENCFUNC accepts a constant function, constant string, and string variable as arguments.")
+		return toEncrypt
+	end
+	LPH_FUNCENC = LPH_ENCFUNC
+
+	LPH_JIT = function(f, ...)
+		assert(type(f) == "function" and #{...} == 0, "LPH_JIT only accepts a single constant function as an argument.")
+		return f
 	end
 	LPH_JIT_MAX = LPH_JIT
 
 	LPH_NO_VIRTUALIZE = function(f, ...)
-    	assert(type(f) == "function" and #{...} == 0, "LPH_NO_VIRTUALIZE only accepts a single constant function as an argument.")
-    	return f
+		assert(type(f) == "function" and #{...} == 0, "LPH_NO_VIRTUALIZE only accepts a single constant function as an argument.")
+		return f
 	end
 
 	LPH_NO_UPVALUES = function(f, ...)
-    	assert(type(setfenv) == "function", "LPH_NO_UPVALUES can only be used on Lua versions with getfenv & setfenv")
-    	assert(type(f) == "function" and #{...} == 0, "LPH_NO_UPVALUES only accepts a single constant function as an argument.")
-    	return f
+		assert(type(setfenv) == "function", "LPH_NO_UPVALUES can only be used on Lua versions with getfenv & setfenv")
+		assert(type(f) == "function" and #{...} == 0, "LPH_NO_UPVALUES only accepts a single constant function as an argument.")
+		return f
 	end
 
 	LPH_CRASH = function(...)
-    	assert(#{...} == 0, "LPH_CRASH does not accept any arguments.")
+		assert(#{...} == 0, "LPH_CRASH does not accept any arguments.")
 	end
-end
 
-getgenv().DebugMode = true
+	if (not LRM_LinkedDiscordID) then LRM_LinkedDiscordID = "1123144940071952394" end;
+	if (not LRM_TotalExecutions) then LRM_TotalExecutions = "unknown" end;
+	if (not LRM_SecondsLeft) then LRM_SecondsLeft = "9999999" end;
+end
 
 local HttpService   = cloneref(game:GetService("HttpService"))
 local Players       = cloneref(game:GetService("Players"))
 local CoreGui       = cloneref(game:GetService("CoreGui"))
 local LocalPlayer   = Players.LocalPlayer
 
+getgenv().DebugMode = true
+
 getgenv().Kick = function(Msg, Title)
     LocalPlayer:Kick()
     task.wait(.75)
     CoreGui.RobloxPromptGui.promptOverlay.ErrorPrompt.MessageArea.ErrorFrame.ErrorMessage.Text = Msg or "Create a ticket"
-    CoreGui.RobloxPromptGui.promptOverlay.ErrorPrompt.TitleFrame.ErrorTitle.Text = "athena | " .. (Title or "Rejoin")
+    CoreGui.RobloxPromptGui.promptOverlay.ErrorPrompt.TitleFrame.ErrorTitle.Text = "Athena | " .. (Title or "Rejoin")
     return
 end
 
@@ -57,7 +79,7 @@ task.spawn(LPH_NO_VIRTUALIZE(function()
         local timeStr = string.format("%02d:%02d:%02d", hours, minutes, seconds)
 
         if getgenv().DebugMode then
-            rconsolesettitle(" Chinese Bypass | " .. timeStr)
+            rconsolesettitle(" Client Bypass | " .. timeStr)
         end
     end
 end))
@@ -229,3 +251,4 @@ AAA()
 
 getgenv().BypassLoaded = true
 DebugPrint("Bypass Loaded (V2) \n")
+wait(3)
